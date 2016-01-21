@@ -1,0 +1,18 @@
+{% extends data.outerLayout %}
+{% block title %}{{ data.page.title }}{% endblock %}
+{% block main %}
+
+<h2>{{ data.page.title }}</h2>
+
+{{
+  apos.area(data.page, 'body', {
+    widgets: {
+      'apostrophe-rich-text': {
+        toolbar: [ 'Bold', 'Italic', 'Link', 'Anchor', 'Unlink' ]
+      },
+      'apostrophe-images': { size: 'one-half' }
+    }
+  })
+}}
+
+{% endblock %}

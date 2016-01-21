@@ -1,0 +1,31 @@
+{% extends "outerLayoutBase.html" %}
+{% block beforeMain %}
+
+  <nav class="tabs">
+    {# If we have ancestors, the first one is the home page. Otherwise, we are the home page #}
+    {% set home = data.page._ancestors[0] or data.page %}
+    {% for page in home._children %}
+      {# If this tab is the current page or its second ancestor, it's the current tab #}
+      {% set current = (data.page._id == page._id) or (data.page._ancestors[1]._id == page._id) %}
+      <a href="{{ page._url }}" class="{% if current %}current{% endif %}">{{ page.title }}</a>
+    {% endfor %}
+  </nav>
+
+  <nav class="breadcrumb">
+    {% for page in data.page._ancestors %}
+      <a href="{{ page._url }}">{{ page.title }}</a> &raquo;
+    {% endfor %}
+    <a class="self" href="{{ data.page._url }}">{{ data.page.title }}</a>
+  </nav>
+
+  <nav class="children">
+    {% for page in data.page._children %}
+      <a href="{{ page._url }}">{{ page.title }}</a>
+    {% endfor %}
+  </nav>
+  <main>
+{% endblock %}
+
+{% block afterMain %}
+  </main>
+{% endblock %}
